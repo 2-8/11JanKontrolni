@@ -1,0 +1,88 @@
+    ////Biblioteke
+          using System;
+          using System.Collections.Generic;
+          using System.ComponentModel;
+          using System.Data;
+          using System.Drawing;
+          using System.IO;
+          using System.Linq;
+          using System.Text;
+          using System.Threading.Tasks;
+          using System.Windows.Forms;
+          using System.Windows.Forms.DataVisualization.Charting;
+          
+    //~~~~~Kreiranje open file dialoga i njegoco izvrsavanje, smestanje u dva kombo boksa~~~~~        
+            OpenFileDialog opd = new OpenFileDialog();
+            StreamReader sr;
+            string stavka, prezime, opstina;
+            string[] prezime_opstina=new string[10];
+            opd.Filter = "Tekst datoteke(.txt) | *.txt";
+            opd.RestoreDirectory=true;
+            opd.Title = "Otvori datoteku";
+            opd.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if(opd.ShowDialog()==DialogResult.OK)
+            {
+                sr = new StreamReader(opd.FileName);
+                while((stavka=sr.ReadLine())!=null)
+                {
+                    prezime_opstina = stavka.Split(',');
+                    prezime = prezime_opstina[0];
+                    opstina = prezime_opstina[1];
+                    opstina = opstina.TrimStart();
+                    comboBox1.Items.Add(prezime);
+                    comboBox2.Items.Add(opstina);
+
+                }
+                sr.Dispose();
+            }
+            
+						
+			protected void generisanjeDijagrama()
+        {
+            int a2012=0, a2013=0, a2014=0, a2015=0, a2016=0, a2017=0;
+            chart1.Series.Clear();
+            chart1.Text = "Spisak dece";
+            chart1.Series.Add("2012");
+            chart1.Series["2012"].Points.Clear();
+            chart1.Series["2012"].ChartType = SeriesChartType.Column;
+            chart1.Series.Add("2013");
+            chart1.Series["2013"].Points.Clear();
+            chart1.Series["2013"].ChartType = SeriesChartType.Column;
+            chart1.Series.Add("2014");
+            chart1.Series["2014"].Points.Clear();
+            chart1.Series["2014"].ChartType = SeriesChartType.Column;
+            chart1.Series.Add("2015");
+            chart1.Series["2015"].Points.Clear();
+            chart1.Series["2015"].ChartType = SeriesChartType.Column;
+            chart1.Series.Add("2016");
+            chart1.Series["2016"].Points.Clear();
+            chart1.Series["2016"].ChartType = SeriesChartType.Column;
+            chart1.Series.Add("2017");
+            chart1.Series["2017"].Points.Clear();
+            chart1.Series["2017"].ChartType = SeriesChartType.Column;
+            for(int k=0;k<dataGridView1.Rows.Count-1;k++)
+            {
+                DataGridViewRow red = dataGridView1.Rows[k];
+                if (red.Cells[3].Value.ToString() == "2017")
+                    a2017++;
+                else if (red.Cells[3].Value.ToString() == "2016")
+                    a2016++;
+                else if (red.Cells[3].Value.ToString() == "2015")
+                    a2015++;
+                else if (red.Cells[3].Value.ToString() == "2014")
+                    a2014++;
+                else if (red.Cells[3].Value.ToString() == "2013")
+                    a2013++;
+                else if (red.Cells[3].Value.ToString() == "2012")
+                    a2012++;
+            }
+            chart1.Series["2012"].Points.Add(a2012);
+            chart1.Series["2013"].Points.Add(a2013);
+            chart1.Series["2014"].Points.Add(a2014);
+            chart1.Series["2015"].Points.Add(a2015);
+            chart1.Series["2016"].Points.Add(a2016);
+            chart1.Series["2017"].Points.Add(a2017);
+
+
+        }
+      
