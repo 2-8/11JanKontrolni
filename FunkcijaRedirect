@@ -5,3 +5,8 @@ protected void Button1_Click(object sender, EventArgs e)
                 Response.Redirect("~/Autor.aspx");
             }
         }
+protected void Button2_Click(object sender, EventArgs e)
+        {
+            Session.Remove("user");
+            Response.Redirect("~/Pocetna.aspx");
+        }
